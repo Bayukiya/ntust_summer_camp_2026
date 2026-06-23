@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- 1. Target the URDF file from package 1 -->
+  <let name="urdf_file" value="$(find-pkg-share d11115810_ros2summercamp)/urdf/robot.urdf" />
+
+  <!-- 2. Start robot_state_publisher -->
+  <node pkg="robot_state_publisher" exec="robot_state_publisher" name="robot_state_publisher">
+    <param name="robot_description" value="$(file-content $(var urdf_file))" type="str" />
+  </node>
+
+  <!-- 3. Start your brand new Python Trajectory Node from package 2 -->
+  <node pkg="d11115810_motion" exec="trajectory_generator" name="trajectory_generator" />
+
+  <!-- 4. Start rviz2 with your saved configuration layout -->
+  <node pkg="rviz2" exec="rviz2" name="rviz2" args="-d $(find-pkg-share d11115810_ros2summercamp)/config/config.rviz" />
+</launch>

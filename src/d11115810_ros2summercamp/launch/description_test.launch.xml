@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- 1. Define the path variable to your URDF file -->
+  <let name="urdf_file" value="$(find-pkg-share d11115810_ros2summercamp)/urdf/robot.urdf" />
+
+  <!-- 2. Start the robot_state_publisher node and feed it the URDF contents -->
+  <node pkg="robot_state_publisher" exec="robot_state_publisher" name="robot_state_publisher">
+    <param name="robot_description" value="$(file-content $(var urdf_file))" type="str" />
+  </node>
+
+  <!-- 3. Start the RViz2 node with your custom configuration file path -->
+  <node pkg="rviz2" exec="rviz2" name="rviz2" args="-d $(find-pkg-share d11115810_ros2summercamp)/config/config.rviz" />
+</launch>
+
+
