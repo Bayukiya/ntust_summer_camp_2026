@@ -1,0 +1,25 @@
+moveit_setup_assistant_config:
+  urdf:
+    package: d11115810_ros2summercamp
+    relative_path: urdf/robot.urdf
+  srdf:
+    relative_path: config/manipulator_robot.srdf
+  package_settings:
+    author_name: Bayisa Kune
+    author_email: bayisukiya@gmail.com
+    generated_timestamp: 1782281542
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity
+  modified_urdf:
+    xacros:
+      - control_xacro
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity
