@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<launch>
+  <let name="world_file" value="$(find-pkg-share d11115810_gazebo)/worlds/empty.sdf" />
+  <let name="bridge_config" value="$(find-pkg-share d11115810_gazebo)/config/gz_bridge.yaml" />
+
+  <!-- 1. Run Gazebo Server with our empty world -->
+  <include file="$(find-pkg-share ros_gz_sim)/launch/gz_sim.launch.py">
+    <arg name="gz_args" value="-s $(var world_file)"/>
+    <arg name="on_exit_shutdown" value="True"/>
+  </include>
+
+  <!-- 2. Run Gazebo Client using VirtualBox safe legacy rendering engine -->
+  <include file="$(find-pkg-share ros_gz_sim)/launch/gz_sim.launch.py">
+    <arg name="gz_args" value="-g --render-engine ogre"/>
+    <arg name="on_exit_shutdown" value="True"/>
+  </include>
+
+  <!-- 3. Start ROS <-> Gazebo Clock communication bridge -->
+  <node pkg="ros_gz_bridge" exec="parameter_bridge" name="ros_gz_bridge" args="--config-file $(var bridge_config)"/>
+</launch>

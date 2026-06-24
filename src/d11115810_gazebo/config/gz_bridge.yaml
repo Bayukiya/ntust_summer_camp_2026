@@ -1,0 +1,4 @@
+- topic_name: /clock
+  ros_type_name: rcl_interfaces/msg/Log
+  gz_type_name: gz.msgs.Clock
+  direction: GZ_TO_ROS

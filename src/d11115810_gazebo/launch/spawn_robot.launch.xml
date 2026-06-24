@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Force simulation time clocks everywhere -->
+  <set_parameter name="use_sim_time" value="True" />
+
+  <!-- 1. Generate live URDF description parameter via xacro -->
+  <node pkg="robot_state_publisher" exec="robot_state_publisher" name="robot_state_publisher">
+    <param name="robot_description" value="$(command 'xacro $(find-pkg-share d11115810_moveit_config)/config/manipulator_robot.urdf.xacro')" type="str" />
+  </node>
+
+  
+  <node pkg="ros_gz_sim" exec="create" name="robot_spawner" args="-topic /robot_description -name manipulator_robot -z 0.05" />
+
+  <!-- 3. Safe controller spawner: tells the manager to just configure/start the pre-loaded broadcaster -->
+  <node pkg="controller_manager" exec="spawner" name="joint_state_broadcaster_spawner" args="joint_state_broadcaster --stopped" />
+
+  <!-- 4. Launch RViz2 with your visualization layout configuration -->
+  <node pkg="rviz2" exec="rviz2" name="rviz2" args="-d $(find-pkg-share d11115810_ros2summercamp)/config/config.rviz" />
+</launch>

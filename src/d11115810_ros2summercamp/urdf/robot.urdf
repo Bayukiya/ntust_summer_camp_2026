@@ -1,6 +1,16 @@
 <?xml version="1.0"?>
 <robot name="manipulator_robot">
 
+  <!-- Anchor Point Frame -->
+  <link name="world"/>
+
+  <!-- Fixed Joint locking base_link directly to the ground -->
+  <joint name="world_to_base_joint" type="fixed">
+    <parent link="world"/>
+    <child link="base_link"/>
+    <origin xyz="0 0 0.15" rpy="0 0 0"/>
+  </joint>
+
   <!-- Materials matching color assignments -->
   <material name="red"><color rgba="0.8 0.0 0.0 1.0"/></material>
   <material name="white"><color rgba="0.9 0.9 0.9 1.0"/></material>
